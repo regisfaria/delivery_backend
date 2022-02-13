@@ -1,4 +1,4 @@
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import { Client } from '@prisma/client';
 import { prisma } from '../../../../database/prismaClient';
 
@@ -27,6 +27,28 @@ class PrismaClientsRepository implements IClientsRepository {
     });
 
     return client;
+  }
+
+  async login({
+    username,
+    password,
+  }: ICreateClientDTO): Promise<[boolean, Client | null]> {
+    const client = await prisma.client.findFirst({
+      where: {
+        username: {
+          mode: 'insensitive',
+          equals: username,
+        },
+      },
+    });
+
+    if (!client) {
+      return [false, null];
+    }
+
+    const isCredentialsValid = await compare(password, client.password);
+
+    return [isCredentialsValid, client];
   }
 }
 
