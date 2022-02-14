@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import { accountRoutes } from '../../modules/accounts/routes/accounts.routes';
 import { clientsRoutes } from '../../modules/clients/routes/clients.routes';
-import { deliverymanRoutes } from '../../modules/deliveryman/routes/deliverymans.routes';
+import { deliverymanRoutes } from '../../modules/deliverymans/routes/deliverymans.routes';
 
 const routes = Router();
 
