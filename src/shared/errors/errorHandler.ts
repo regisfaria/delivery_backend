@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { AppError } from './AppError';
 
 function errorHandler(
   error: Error,
@@ -6,11 +7,18 @@ function errorHandler(
   response: Response,
   _next: NextFunction,
 ) {
-  if (error instanceof Error) {
-    return response.status(400).json({ message: error.message });
+  if (error instanceof AppError) {
+    return response.status(error.statusCode).json({
+      status: 'error',
+      message: error.message,
+    });
   }
 
-  return response.status(500).json({ message: 'Internal server error' });
+  return response.status(500).json({
+    status: 'error',
+    message: 'Internal server error',
+    error,
+  });
 }
 
 export { errorHandler };

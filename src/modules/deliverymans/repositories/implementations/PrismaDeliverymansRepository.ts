@@ -48,7 +48,11 @@ class PrismaDeliverymansRepository implements IDeliverymansRepository {
 
     const isCredentialsValid = await compare(password, deliveryman.password);
 
-    return [isCredentialsValid, deliveryman];
+    // this is needed because if credentials are invalid, I don't want
+    // to return the client, only when the passwords match
+    const returnValue = isCredentialsValid ? deliveryman : null;
+
+    return [isCredentialsValid, returnValue];
   }
 }
 

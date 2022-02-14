@@ -1,4 +1,5 @@
 import { Client } from '@prisma/client';
+import { AppError } from '../../../../shared/errors/AppError';
 import { IClientsRepository } from '../../repositories/IClientsRepository';
 
 import { clientsRepository } from '../../repositories/implementations';
@@ -19,7 +20,7 @@ class CreateClientUseCase {
     const clientExists = await this.clientsRepository.findByUsername(username);
 
     if (clientExists) {
-      throw new Error('Username already in use');
+      throw new AppError('Username already in use');
     }
 
     const client = await this.clientsRepository.create({ password, username });

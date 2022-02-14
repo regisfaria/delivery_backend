@@ -1,4 +1,5 @@
 import { Deliveryman } from '@prisma/client';
+import { AppError } from '../../../../shared/errors/AppError';
 import { IDeliverymansRepository } from '../../repositories/IDeliverymansRepository';
 
 import { deliverymansRepository } from '../../repositories/implementations';
@@ -24,7 +25,7 @@ class CreateDeliverymanUseCase {
     );
 
     if (deliverymanExists) {
-      throw new Error('Username already in use');
+      throw new AppError('Username already in use');
     }
 
     const deliveryman = await this.deliverymansRepository.create({

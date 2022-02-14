@@ -48,7 +48,11 @@ class PrismaClientsRepository implements IClientsRepository {
 
     const isCredentialsValid = await compare(password, client.password);
 
-    return [isCredentialsValid, client];
+    // this is needed because if credentials are invalid, I don't want
+    // to return the client, only when the passwords match
+    const returnValue = isCredentialsValid ? client : null;
+
+    return [isCredentialsValid, returnValue];
   }
 }
 

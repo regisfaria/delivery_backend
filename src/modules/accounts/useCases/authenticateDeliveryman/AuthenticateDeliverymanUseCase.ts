@@ -1,4 +1,5 @@
 import { sign } from 'jsonwebtoken';
+import { AppError } from '../../../../shared/errors/AppError';
 
 import { IDeliverymansRepository } from '../../../deliverymans/repositories/IDeliverymansRepository';
 import { deliverymansRepository } from '../../../deliverymans/repositories/implementations';
@@ -26,7 +27,7 @@ class AuthenticateDeliverymanUseCase {
       });
 
     if (!isCredentialsValid) {
-      throw new Error('Invalid username or password');
+      throw new AppError('Invalid username or password');
     }
 
     const token = sign({ username }, process.env.TOKEN_HASH!, {

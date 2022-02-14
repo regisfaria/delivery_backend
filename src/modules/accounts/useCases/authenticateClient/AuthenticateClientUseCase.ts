@@ -1,4 +1,5 @@
 import { sign } from 'jsonwebtoken';
+import { AppError } from '../../../../shared/errors/AppError';
 
 import { IClientsRepository } from '../../../clients/repositories/IClientsRepository';
 import { clientsRepository } from '../../../clients/repositories/implementations';
@@ -22,7 +23,7 @@ class AuthenticateClientUseCase {
     });
 
     if (!isCredentialsValid) {
-      throw new Error('Invalid username or password');
+      throw new AppError('Invalid username or password');
     }
 
     const token = sign({ username }, process.env.TOKEN_HASH!, {
