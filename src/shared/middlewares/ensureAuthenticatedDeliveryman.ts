@@ -6,7 +6,7 @@ interface IPayload {
   sub: string;
 }
 
-function ensureAuthenticatedClient(
+function ensureAuthenticatedDeliveryman(
   request: Request,
   response: Response,
   next: NextFunction,
@@ -20,7 +20,10 @@ function ensureAuthenticatedClient(
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub } = verify(token, process.env.CLIENT_TOKEN_HASH!) as IPayload;
+    const { sub } = verify(
+      token,
+      process.env.DELIVERYMAN_TOKEN_HASH!,
+    ) as IPayload;
 
     request.client.id = sub;
 
@@ -30,4 +33,4 @@ function ensureAuthenticatedClient(
   }
 }
 
-export { ensureAuthenticatedClient };
+export { ensureAuthenticatedDeliveryman };

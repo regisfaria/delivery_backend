@@ -26,7 +26,7 @@ class AuthenticateClientUseCase {
       throw new AppError('Invalid username or password');
     }
 
-    const token = sign({ username }, process.env.TOKEN_HASH!, {
+    const token = sign({ username }, process.env.CLIENT_TOKEN_HASH!, {
       subject: client?.id,
       expiresIn: '1d',
     });

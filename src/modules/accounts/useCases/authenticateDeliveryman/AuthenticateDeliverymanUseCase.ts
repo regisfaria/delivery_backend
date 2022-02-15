@@ -30,7 +30,7 @@ class AuthenticateDeliverymanUseCase {
       throw new AppError('Invalid username or password');
     }
 
-    const token = sign({ username }, process.env.TOKEN_HASH!, {
+    const token = sign({ username }, process.env.DELIVERYMAN_TOKEN_HASH!, {
       subject: deliveryman?.id,
       expiresIn: '1d',
     });
