@@ -20,6 +20,14 @@ class FakeDeliveriesRepository implements IDeliveriesRepository {
 
     return delivery;
   }
+
+  async findAllNotDelivered(): Promise<Delivery[]> {
+    const deliveries = this.deliveries.filter(
+      delivery => delivery.delivered_at === null,
+    );
+
+    return deliveries;
+  }
 }
 
 export { FakeDeliveriesRepository };
