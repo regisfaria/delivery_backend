@@ -25,10 +25,11 @@ function ensureAuthenticatedDeliveryman(
       process.env.DELIVERYMAN_TOKEN_HASH!,
     ) as IPayload;
 
-    request.client.id = sub;
+    Object.assign(request, { deliveryman: { id: sub } });
 
     return next();
   } catch (error) {
+    console.log(error);
     throw new AppError('Invalid token', 401);
   }
 }

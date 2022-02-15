@@ -22,7 +22,7 @@ function ensureAuthenticatedClient(
   try {
     const { sub } = verify(token, process.env.CLIENT_TOKEN_HASH!) as IPayload;
 
-    request.client.id = sub;
+    Object.assign(request, { client: { id: sub } });
 
     return next();
   } catch (error) {
