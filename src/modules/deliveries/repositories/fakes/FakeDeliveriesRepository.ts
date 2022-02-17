@@ -43,6 +43,16 @@ class FakeDeliveriesRepository implements IDeliveriesRepository {
 
     return this.deliveries[deliveryIndex];
   }
+
+  async endDelivery(id: string): Promise<Delivery> {
+    const deliveryIndex = this.deliveries.findIndex(
+      delivery => delivery.id === id,
+    );
+
+    this.deliveries[deliveryIndex].delivered_at = new Date();
+
+    return this.deliveries[deliveryIndex];
+  }
 }
 
 export { FakeDeliveriesRepository };

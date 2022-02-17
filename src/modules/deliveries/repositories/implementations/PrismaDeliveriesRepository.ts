@@ -42,6 +42,19 @@ class PrismaDeliveriesRepository implements IDeliveriesRepository {
 
     return updatedDelivery;
   }
+
+  async endDelivery(id: string): Promise<Delivery> {
+    const updatedDelivery = await prisma.delivery.update({
+      where: {
+        id,
+      },
+      data: {
+        delivered_at: new Date(),
+      },
+    });
+
+    return updatedDelivery;
+  }
 }
 
 export { PrismaDeliveriesRepository };
