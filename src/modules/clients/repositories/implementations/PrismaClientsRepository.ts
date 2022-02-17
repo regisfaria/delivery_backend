@@ -12,7 +12,9 @@ class PrismaClientsRepository implements IClientsRepository {
       where: {
         id,
       },
-      include: {
+      select: {
+        id: true,
+        username: true,
         deliveries: true,
       },
     });

@@ -1,5 +1,9 @@
-import { Client, Delivery } from '@prisma/client';
+import { Delivery } from '@prisma/client';
 
-type IClientDataDTO = (Client & { deliveries: Delivery[] }) | null;
+type IClientDataDTO = {
+  id: string;
+  username: string;
+  deliveries?: Delivery[];
+} | null;
 
 export { IClientDataDTO };
