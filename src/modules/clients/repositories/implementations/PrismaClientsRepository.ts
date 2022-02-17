@@ -4,8 +4,22 @@ import { prisma } from '../../../../database/prismaClient';
 
 import { ICreateClientDTO } from '../../dtos/ICreateClientDTO';
 import { IClientsRepository } from '../IClientsRepository';
+import { IClientDataDTO } from '../../dtos/IClientDataDTO';
 
 class PrismaClientsRepository implements IClientsRepository {
+  async findByIdWithDeliveries(id: string): Promise<IClientDataDTO | null> {
+    const client = await prisma.client.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        deliveries: true,
+      },
+    });
+
+    return client;
+  }
+
   async findByUsername(username: string): Promise<Client | null> {
     const client = await prisma.client.findFirst({
       where: {
