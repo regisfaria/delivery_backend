@@ -3,7 +3,6 @@ import { GetClientDataUseCase } from './GetClientDataUseCase';
 
 let createClientUseCase: CreateClientUseCase;
 let getClientDataUseCase: GetClientDataUseCase;
-// let createClientUseCase: CreateClientUseCase;
 
 process.env.NODE_ENV = 'test';
 

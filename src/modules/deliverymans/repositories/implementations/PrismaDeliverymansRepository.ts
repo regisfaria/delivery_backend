@@ -4,8 +4,26 @@ import { prisma } from '../../../../database/prismaClient';
 
 import { ICreateDeliverymanDTO } from '../../dtos/ICreateDeliverymanDTO';
 import { IDeliverymansRepository } from '../IDeliverymansRepository';
+import { IDeliverymanDataDTO } from '../../dtos/IDeliverymanDataDTO';
 
 class PrismaDeliverymansRepository implements IDeliverymansRepository {
+  async findByIdWithDeliveries(
+    id: string,
+  ): Promise<IDeliverymanDataDTO | null> {
+    const deliveryman = await prisma.deliveryman.findFirst({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        username: true,
+        deliveries: true,
+      },
+    });
+
+    return deliveryman;
+  }
+
   async findByUsername(username: string): Promise<Client | null> {
     const deliveryman = await prisma.deliveryman.findFirst({
       where: {
